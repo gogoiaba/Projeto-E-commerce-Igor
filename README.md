@@ -43,5 +43,4 @@ cli.js → Menu e interação com o usuário
 
 ✍️ Autor
 
-Projeto desenvolvido por Igor
-Aluno em formação e praticando lógica de programação com JavaScript 🧑‍💻
+Projeto desenvolvido por Igor Sá. 
