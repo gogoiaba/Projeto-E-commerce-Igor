@@ -32,10 +32,6 @@ function incluirProduto(nome, preco, quantidade) {
   });
 }
 
-function listarProdutos() {
-  console.table(produtos);
-}
-
 // cadastrar clientes
 function cadastrarCliente(nome, cpf, telefone) {
   clientes.push({
@@ -90,19 +86,13 @@ function finalizarCompra(desconto = 0) {
   console.log("Compra finalizada!");
 }
 
-function listarClientes() {
-  console.table(clientes);
-}
-
 module.exports = {
   produtos,
   clientes,
   carrinho,
   historicoCompras,
   incluirProduto,
-  listarProdutos,
   cadastrarCliente,
   adicionarAoCarrinho,
   finalizarCompra,
-  listarClientes,
 };

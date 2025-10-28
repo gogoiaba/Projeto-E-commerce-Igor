@@ -3,9 +3,7 @@ const {
   produtos,
   clientes,
   incluirProduto,
-  listarProdutos,
   cadastrarCliente,
-  listarClientes,
   adicionarAoCarrinho,
   finalizarCompra,
   historicoCompras,
@@ -39,7 +37,7 @@ while (opcao !== "0") {
   }
 
   if (opcao === "2") {
-    listarProdutos();
+    console.table(produtos);
   }
 
   if (opcao === "3") {
@@ -65,7 +63,7 @@ while (opcao !== "0") {
   }
 
   if (opcao === "7") {
-    listarClientes();
+    console.table(clientes);
   }
 }
 
