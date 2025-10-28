@@ -1,0 +1,108 @@
+let produtos = [
+  { nome: "lapiseira", preco: 14.9, quantidade: 52 },
+  { nome: "caneta", preco: 4.5, quantidade: 100 },
+  { nome: "borracha", preco: 2.75, quantidade: 30 },
+];
+let clientes = [
+  {
+    nome: "Ana Beatriz",
+    cpf: "123.456.789-00",
+    telefone: "(14) 99999-1111",
+  },
+  {
+    nome: "Carlos Eduardo",
+    cpf: "987.654.321-00",
+    telefone: "(14) 98888-2222",
+  },
+  {
+    nome: "Fernanda Lima",
+    cpf: "456.789.123-00",
+    telefone: "(14) 97777-3333",
+  },
+];
+let carrinho = [];
+let historicoCompras = [];
+
+// cadastrar produtos
+function incluirProduto(nome, preco, quantidade) {
+  produtos.push({
+    nome: nome,
+    preco: Number(preco.toFixed(2)),
+    quantidade: quantidade,
+  });
+}
+
+function listarProdutos() {
+  console.table(produtos);
+}
+
+// cadastrar clientes
+function cadastrarCliente(nome, cpf, telefone) {
+  clientes.push({
+    nome: nome,
+    cpf: cpf,
+    telefone: telefone,
+  });
+}
+
+function adicionarAoCarrinho(nome, quantidade) {
+  const produto = produtos.find((p) => p.nome === nome);
+  if (!produto) {
+    console.log("Produto não encontrado!");
+    return;
+  }
+  carrinho.push({
+    nome: nome,
+    preco: produto.preco,
+    quantidade: quantidade,
+  });
+}
+
+function finalizarCompra(desconto = 0) {
+  if (carrinho.length === 0) {
+    console.log("Carrinho vazio!");
+    return;
+  }
+
+  let subtotal = 0;
+  carrinho.forEach((item) => {
+    subtotal += item.preco * item.quantidade;
+  });
+
+  let valorDesconto = subtotal * (desconto / 100);
+  let totalFinal = subtotal - valorDesconto;
+
+  console.log(`Subtotal: R$ ${subtotal.toFixed(2)}`);
+  console.log(`Desconto: ${desconto}% (-R$ ${valorDesconto.toFixed(2)})`);
+  console.log(`Total final: R$ ${totalFinal.toFixed(2)}`);
+
+  carrinho.forEach((item) => {
+    const produto = produtos.find((p) => p.nome === item.nome);
+    produto.quantidade -= item.quantidade;
+  });
+
+  historicoCompras.push({
+    itens: carrinho.map((item) => item.nome),
+    total: Number(totalFinal.toFixed(2)),
+  });
+
+  carrinho = [];
+  console.log("Compra finalizada!");
+}
+
+function listarClientes() {
+  console.table(clientes);
+}
+
+module.exports = {
+  produtos,
+  clientes,
+  carrinho,
+  historicoCompras,
+  incluirProduto,
+  listarProdutos,
+  cadastrarCliente,
+  adicionarAoCarrinho,
+  finalizarCompra,
+  listarClientes,
+};
