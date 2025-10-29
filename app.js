@@ -41,6 +41,7 @@ function cadastrarCliente(nome, cpf, telefone) {
   });
 }
 
+//busca o produto que o usuario pediu no array produtos e coloca no array carrinho
 function adicionarAoCarrinho(nome, quantidade) {
   const produto = produtos.find((p) => p.nome === nome);
   if (!produto) {
@@ -60,11 +61,13 @@ function finalizarCompra(desconto = 0) {
     return;
   }
 
+  //pega cada item do carrinho e calcula pra colocar no subtotal
   let subtotal = 0;
   carrinho.forEach((item) => {
     subtotal += item.preco * item.quantidade;
   });
 
+  //aplica o desconto concedido ao subtotal e mostra o total final
   let valorDesconto = subtotal * (desconto / 100);
   let totalFinal = subtotal - valorDesconto;
 
@@ -72,16 +75,19 @@ function finalizarCompra(desconto = 0) {
   console.log(`Desconto: ${desconto}% (-R$ ${valorDesconto.toFixed(2)})`);
   console.log(`Total final: R$ ${totalFinal.toFixed(2)}`);
 
+  //tirar itens que estão sendo comprados do estoque
   carrinho.forEach((item) => {
     const produto = produtos.find((p) => p.nome === item.nome);
     produto.quantidade -= item.quantidade;
   });
 
+  //mandar o que foi comprado que estava no carrinho e o total para o historico
   historicoCompras.push({
     itens: carrinho.map((item) => item.nome),
     total: Number(totalFinal.toFixed(2)),
   });
 
+  //esvaziar o array carrinho e dar a mensagem de sucesso
   carrinho = [];
   console.log("Compra finalizada!");
 }
